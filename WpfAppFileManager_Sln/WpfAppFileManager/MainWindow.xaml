@@ -1,0 +1,70 @@
+﻿<Window x:Class="WpfAppFileManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfAppFileManager"
+        mc:Ignorable="d"
+        Title="Test task from veeam" Height="450" Width="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="0.1*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+
+        <GroupBox Grid.Row="0">
+            <ListBox  ItemsSource="{Binding List_paths}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="5" Orientation="Vertical">
+                            <TextBlock>
+                            <Run Text="Исходная дерикторя:       "/>
+                            <Run Text="{Binding Path=Source_path}"/>
+                            </TextBlock>
+                            <TextBlock>
+                            <Run Text="Дериктория назначения: "/>
+                            <Run Text="{Binding Path=Destination_path}" />
+                            </TextBlock>
+                            <TextBlock>
+                            <Run Text="Название файла:              " />
+                            <Run Text="{Binding Path=File_name}" />
+                            </TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+
+        <GroupBox Header="Журнал"  Grid.Row="2">
+            <ListBox    ItemsSource="{Binding Log}">
+                <ListBox.ItemTemplate >
+                    <DataTemplate >
+                        <StackPanel Margin="5" Orientation="Vertical">
+                            <TextBlock Text="Дата события: " />
+                            <TextBlock Text="{Binding Path=Date_time}"/>
+                            <TextBlock Text="Событие: " />
+                            <TextBlock Text="{Binding Path=Status}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </GroupBox>
+
+        <Grid Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Button Command="{Binding ReadConfigCommand}"  Content="Считать файл настроек" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0"/>
+            <Button Command="{Binding CreateFilesCommand}" IsEnabled="{Binding ButtoneAvailible}" Content="Создать файлы" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
+            <Button Command="{Binding СopyFilesCommand}" IsEnabled="{Binding ButtoneAvailible}" Content="Копировать файлы" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2"/>
+        </Grid>
+    </Grid>
+</Window>
